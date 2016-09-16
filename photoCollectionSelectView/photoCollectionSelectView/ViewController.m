@@ -1,11 +1,10 @@
-# photoSelectView
-一个用于发布状态界面，添加多图的collectionView选择器。
-
-可以设置最大选择图片数量
-
-* 使用方法示例
-
-```
+//
+//  ViewController.m
+//  photoCollectionSelectView
+//
+//  Created by Yanglixia on 16/9/16.
+//  Copyright © 2016年 test. All rights reserved.
+//
 
 #import "ViewController.h"
 #import "photoSelectView.h"
@@ -19,7 +18,7 @@
 - (photoSelectView *)photoSelectVc
 {
     if (!_photoSelectVc) {
-        _photoSelectVc = [[photoSelectView alloc] initWithFrame:self.view.bounds maxSelectCount:4];// 可以设置最大选择数
+        _photoSelectVc = [[photoSelectView alloc] initWithFrame:self.view.bounds maxSelectCount:4];
     }
     return _photoSelectVc;
 }
@@ -35,7 +34,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-// 在这里拿到选择后的照片
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     NSArray *images = self.photoSelectVc.images;
@@ -44,6 +42,3 @@
 }
 
 @end
-
-```
-![image](https://github.com/linxyang/photoSelectView/blob/master/1.gif)
