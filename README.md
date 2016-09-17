@@ -19,7 +19,7 @@
 - (photoSelectView *)photoSelectVc
 {
     if (!_photoSelectVc) {
-        _photoSelectVc = [[photoSelectView alloc] initWithFrame:self.view.bounds maxSelectCount:4];// 可以设置最大选择数
+        _photoSelectVc = [[photoSelectView alloc] initWithFrame:self.view.bounds maxSelectCount:4  withVc:self];// 可以设置最大选择数
     }
     return _photoSelectVc;
 }
