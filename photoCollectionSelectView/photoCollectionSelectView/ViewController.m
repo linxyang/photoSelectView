@@ -18,7 +18,7 @@
 - (photoSelectView *)photoSelectVc
 {
     if (!_photoSelectVc) {
-        _photoSelectVc = [[photoSelectView alloc] initWithFrame:self.view.bounds maxSelectCount:4];
+        _photoSelectVc = [[photoSelectView alloc] initWithFrame:self.view.bounds maxSelectCount:4  withVc:self];
     }
     return _photoSelectVc;
 }

@@ -10,7 +10,7 @@
 
 @interface photoSelectView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame maxSelectCount:(NSInteger)maxCount;
+- (instancetype)initWithFrame:(CGRect)frame maxSelectCount:(NSInteger)maxCount withVc:(UIViewController *)vc;
 /** collectionview */
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 /** 图片数据 */

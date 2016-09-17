@@ -29,6 +29,8 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
 @interface photoSelectView ()<UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate,PhotoCollectionViewCellDelegate>
 /** 最大添加图片数 */
 @property (nonatomic, assign) NSInteger maxCount;
+/** 哪个控制器弹出我 */
+@property (nonatomic, weak) UIViewController *viewVc;
 @end
 
 @implementation photoSelectView
@@ -59,13 +61,14 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
 
 #pragma mark - life cycle
 
-- (instancetype)initWithFrame:(CGRect)frame maxSelectCount:(NSInteger)maxCount
+- (instancetype)initWithFrame:(CGRect)frame maxSelectCount:(NSInteger)maxCount withVc:(UIViewController *)vc
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Register cell classes
         [self addSubview:self.collectionView];
         self.maxCount = maxCount;
+        self.viewVc = vc;
     }
     return self;
 
@@ -109,9 +112,7 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
         pickerVc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         pickerVc.delegate = self;
         
-        // 拿到窗口根控制器
-        UIViewController *rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [rootVc presentViewController:pickerVc animated:YES completion:nil];
+        [self.viewVc presentViewController:pickerVc animated:YES completion:nil];
         
     } else {
         
