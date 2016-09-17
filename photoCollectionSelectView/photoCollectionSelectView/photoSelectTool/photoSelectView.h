@@ -13,7 +13,7 @@
 - (instancetype)initWithFrame:(CGRect)frame maxSelectCount:(NSInteger)maxCount withVc:(UIViewController *)vc;
 /** collectionview */
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
-/** 图片数据 */
-@property (nonatomic, strong, readonly) NSMutableArray<UIImage *> *images;
+/** 原始图片数据 */
+@property (nonatomic, strong, readonly) NSMutableArray<UIImage *> *originImages;
 
 @end

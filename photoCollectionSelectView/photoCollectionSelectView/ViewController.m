@@ -36,7 +36,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    NSArray *images = self.photoSelectVc.images;
+    NSArray *images = self.photoSelectVc.originImages;
     
     NSLog(@"%@",images);
 }

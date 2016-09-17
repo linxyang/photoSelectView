@@ -27,6 +27,8 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
 
 
 @interface photoSelectView ()<UICollectionViewDelegate,UICollectionViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate,PhotoCollectionViewCellDelegate>
+/** 缩放图片数据 */
+@property (nonatomic, strong, readonly) NSMutableArray<UIImage *> *images;
 /** 最大添加图片数 */
 @property (nonatomic, assign) NSInteger maxCount;
 /** 哪个控制器弹出我 */
@@ -36,6 +38,7 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
 @implementation photoSelectView
 @synthesize collectionView = _collectionView;
 @synthesize images = _images;
+@synthesize originImages = _originImages;
 
 #pragma mark - lazy load
 - (UICollectionView *)collectionView
@@ -57,6 +60,13 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
         _images = [NSMutableArray array];
     }
     return _images;
+}
+- (NSMutableArray<UIImage *> *)originImages
+{
+    if (!_originImages) {
+        _originImages = [NSMutableArray array];
+    }
+    return _originImages;
 }
 
 #pragma mark - life cycle
@@ -129,9 +139,12 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
         return;
     }
     if (self.images.count < self.maxCount) {
-        // 添加到数据中，要先绽放，不然图片过大，加到数据中，会占用很大的内存，程序运行内存超过500m会闪退
+        // 添加到collectionView数据源中，要先缩放，不然图片过大，加到数据中，会占用很大的内存，程序运行内存超过500m会闪退
         UIImage *newImage = [self scaleImage:image width:100];
         [self.images addObject:newImage];
+        // 待上传的图片，压缩。
+        UIImage *originImage = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0.1)];
+        [self.originImages addObject:originImage];
         // 3.刷新表格
         [self.collectionView reloadData];
     }
@@ -142,8 +155,10 @@ const NSInteger photoCellMaxCol = 4;// 最大列数
 #pragma mark - PhotoCollectionViewCellDelegate
 - (void)photoCollectionViewCell:(PhotoCollectionViewCell *)cell DidClickCloseButton:(UIButton *)closeBtn
 {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     if (!closeBtn.hidden) { // 没隐藏，则为图片
         [self.images removeObject:cell.image];
+        [self.originImages removeObjectAtIndex:indexPath.row];
         [self.collectionView reloadData];
     }
 }
